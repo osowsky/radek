@@ -2,22 +2,31 @@
 #include <stdlib.h>
 #include <string.h>
 
-/*Make a program in C/C++ or Java language that calculates the length of a string
-informed by the user (do not use any pre-existing function or method for this,
-such as len(), count(), strlen() or lenght());*/
+/*Make a program in C/C++ or Java language that reverses a string informed by
+the user without using any temporary variable, buffer or any pre-existing
+function or method for this.*/
 
-// Get the length of a string.
-int _strlen(  char* lpszText )
+// Reverse a string.
+char* _strrev(  char* lpszText )
 {
-  int iLen = 0;
+  int iLen, i;
 
   if ( !lpszText ) // String must exist.
-    return -1;
+    return NULL;
 
-  while( *( lpszText + iLen ) )
-    iLen++;
+  // size of a string.
+  iLen = strlen( lpszText );
 
-  return iLen;
+  for ( i = 0; i < iLen / 2; i++ )
+  {
+    // use the terminator as a temporary variable.
+    lpszText[ iLen ] = lpszText[ iLen - 1 - i ];
+    lpszText[ iLen - 1 - i ] = lpszText[ i ];
+    lpszText[ i ] = lpszText[ iLen ];
+  }
+  lpszText[ iLen ] = 0; //return the string terminator.
+
+  return lpszText;
 };
 
 int main( int argc, char** argv )
@@ -30,9 +39,7 @@ int main( int argc, char** argv )
 
   // Calc the length of the input arguments.
   for ( i = 1; i < argc; i++ )
-  {
-    printf( "Size of \"%s\": %d chars.\n ", argv[ i ], _strlen( argv[ i ] ) );
-  }
+    printf( "%s\n", _strrev( argv[ i ] ) );
 
   return 0;
 };

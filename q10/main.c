@@ -30,9 +30,7 @@ int main( int argc, char** argv )
 
   // Calc the length of the input arguments.
   for ( i = 1; i < argc; i++ )
-  {
-    printf( "Size of \"%s\": %d chars.\n ", argv[ i ], _strlen( argv[ i ] ) );
-  }
+    printf( "%d\n", _strlen( argv[ i ] ) );
 
   return 0;
 };
