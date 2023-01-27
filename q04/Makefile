@@ -8,7 +8,7 @@
 #
 # Processor independent makefile
 
-APPNAME=q03
+APPNAME=q04
 
 all: clean $(APPNAME)
 

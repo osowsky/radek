@@ -8,9 +8,9 @@
 #
 # Processor independent makefile
 
-APPNAME=q4
+APPNAME=q10
 
-all: $(APPNAME)
+all: clean $(APPNAME)
 
 #--------------------------------------------------------------------#
 # Build rules for the application.
@@ -19,3 +19,9 @@ $(APPNAME):
 	@echo Building console application $(APPNAME)...
 	@gcc main.c -o $(APPNAME)
 	@echo ...done.
+
+#--------------------------------------------------------------------#
+# Build rules for cleaning all.
+clean:
+	@echo Cleaning aux and exe files in $(APPNAME)...
+	@rm $(APPNAME).*

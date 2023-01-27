@@ -14,7 +14,7 @@ but you should produce efficient code.*/
 int main( void )
 {
   int i;
-  
+
   for ( i = 1; i <= 100; i++ )
   {
     if ( ( i % 3 ) && ( i % 5 ) ) // Number is not multiple of 3 and 5.
@@ -28,4 +28,6 @@ int main( void )
 
     printf( "\n" ); // Next line.
   }
+
+  return 0;
 };
