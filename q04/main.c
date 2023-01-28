@@ -41,7 +41,7 @@ Print 'yes' if you can get the string t by executing exactly k operations on the
 string s, and print 'no' otherwise.
 
 Example 1
-bla bla bla bla
+blablablabla
 blablabcde
 8
 yes
@@ -54,8 +54,8 @@ the program printed "yes".
 
 Example 2
 tab
-tab
-7
+aba
+6
 yes
 
 Explanation
@@ -63,23 +63,96 @@ It took 4 operations to reduce the string s (remember that a removal operation o
 keeps the string empty). Then, 3 concatenation operations were performed (a, b, a).
 Since it was possible to convert s to t using exactly k = 7 operations, the prog*/
 
-int main( void )
+#ifndef BOOL
+	#define BOOL long
+#endif //BOOL
+
+#ifndef FALSE
+	#define FALSE ( BOOL )0L
+#endif //FALSE
+#ifndef TRUE
+	#define TRUE ( !FALSE )
+#endif //TRUE
+
+	
+// Return TRUE if there are not capital letters in the string.
+BOOL _IsLower( char* lpszText )
 {
-  int i;
+	BOOL bRes = TRUE;
+	
+	// Is valid?
+	if ( !lpszText )
+		return FALSE;
+	
+	// Has chars?
+	if ( !strlen( lpszText ) )
+		return TRUE;
+	
+	// Test letter.
+	if ( ( lpszText[ 0 ] >= 'a' ) && ( lpszText[ 0 ] <= 'z' ) )
+		bRes = bRes && _IsLower( &lpszText[ 1 ] );
+	else
+		return FALSE;
+	
+	return bRes;
+};
 
-  for ( i = 1; i <= 100; i++ )
-  {
-    if ( ( i % 3 ) && ( i % 5 ) ) // Number is not multiple of 3 and 5.
-      printf( "%03d", i );
+// Return TRUE if you get the string t by executing exactly k operations on the s.
+BOOL ConcatRemove( char* s, char* t, int k )
+{
+	BOOL bRes = TRUE;
+	int iLen;
+	
+	// Validate pointer.
+	if ( ( !s ) || ( !t ) )
+		return FALSE;
+	
+	// Is strings ok?
+	if ( ( !_IsLower( s ) ) || ( !_IsLower( t ) ) )
+		return FALSE;
+	
+	// Begin alg.
+	if ( !s[ 0 ] ) // s is at the end.
+	{
+		if ( !t[ 0 ] ) // t is at the end, too.
+			return ( !k ? TRUE : FALSE );
+		else
+			bRes = bRes && ConcatRemove( s, &t[ 1 ], k - 1 ); // so far, so good.
+	}
+	else
+		bRes = ( s[ 0 ] == t[ 0 ] ? bRes && ConcatRemove( &s[ 1 ], &t[ 1 ], k ) /* so far, so good. Letters are the same. Keep walking.*/ :
+		bRes && ConcatRemove( &s[ strlen( s ) ], t, k - strlen( s ) ) /* s and t are not the same. Remove s and add t.*/ );
+	
+	return bRes;
+};
 
-    if ( !( i % 3 ) ) // Number is multiple of 3.
-      printf( "Foo" );
+int main( int argc, char** argv )
+{
+	char* s;
+	char* t;
+	int k;
 
-    if ( !( i % 5 ) ) // Number is multiple of 5.
-      printf( "Baa" );
+	// Is argc ok?
+	if ( argc < 4 )
+	{
+		printf( "no\n" );
+		return 0;
+	}
+	
+	// Get args.
+	s = argv[ 1 ];
+	t = argv[ 2 ];
+	k = atoi( argv[ 3 ] );
 
-    printf( "\n" ); // Next line.
-  }
-
-  return 0;
+	// Is length and size ok?
+	if ( ( ( k < 1 ) || ( k > 100 ) ) || ( ( strlen( s ) < 1 ) || ( strlen( s ) > 100 ) ) || ( ( strlen( t ) < 1 ) || ( strlen( t ) > 100 ) ) )
+	{
+		printf( "no\n" );
+		return 0;
+	}
+	
+	// Show result.
+	printf( "%s\n", ConcatRemove( s, t, k ) ? "yes" : "no" );
+	
+	return 0;
 };

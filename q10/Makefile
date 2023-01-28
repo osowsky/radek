@@ -24,4 +24,4 @@ $(APPNAME):
 # Build rules for cleaning all.
 clean:
 	@echo Cleaning aux and exe files in $(APPNAME)...
-	@rm -f $(APPNAME).*
+	@rm -f $(APPNAME)*
