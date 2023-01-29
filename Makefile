@@ -26,4 +26,3 @@ build:
 # Build rules for cleaning all.
 clean:
 	@$(foreach dir, $(MKDIRS), $(call clr, $(dir)))
-	
