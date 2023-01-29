@@ -3,7 +3,7 @@
 
 This project was built to run in Windows and Linux OSes.
 
-To build all applications you MUST to run a console/shell and type "make + <Enter>"
+To build all applications you MUST to run a console/shell and type "make + Enter"
 
 Then, execute each app entering to its directory and type "qxx + input arguments" that depends on what app you want to test and assess.
 
