@@ -7,23 +7,21 @@
 #
 #
 # Processor independent makefile
-MKFILES := $(wildcard ./q*/Makefile)
-MKDIRS := $(dir $(MKFILES))
 
-#Define functions.
-clr = cd $1; make clean; cd ..;
-mke = cd $1; make; cd ..;
+APPNAME=q05
 
-all: build
+all: clean $(APPNAME)
 
 #--------------------------------------------------------------------#
-# Build rules to compile all applications.
+# Build rules for the application.
 
-build:
-	@$(foreach dir, $(MKDIRS), $(call mke, $(dir)))
+$(APPNAME):
+	@echo Building console application $(APPNAME)...
+	@gcc main.c -o $(APPNAME)
+	@echo ...done.
 
 #--------------------------------------------------------------------#
 # Build rules for cleaning all.
 clean:
-	@$(foreach dir, $(MKDIRS), $(call clr, $(dir)))
-	
+	@echo Cleaning aux and exe files in $(APPNAME)...
+	@rm -f $(APPNAME)*
